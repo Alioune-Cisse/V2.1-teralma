@@ -79,10 +79,13 @@ def pulp_optimize(budget=2000, sous_categ=['Oreo Biscuits Mini Chocolat', 'Anita
   
   # Afficher les résultats
   repartitions = {}
+  somme = 0
   for val in variables:
-    #print(f"{val.name} = {choix[val.name]} : {val.value()}")
-    repartitions[choix[val.name]] = str(round(val.value())) + " FCFA"
+        prix = round(val.value())
+        #print(f"{val.name} = {choix[val.name]} : {val.value()}")
+        somme += prix
+        repartitions[choix[val.name]] = str(prix) + " FCFA"
     
-
+  repartitions["autres"] = str(budget - somme) + " FCFA"
   return repartitions
 

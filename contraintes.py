@@ -46,6 +46,6 @@ class Contraintes:
                 contraintes["egalites"].append({elt: prix})
                 
             else:
-                pass
+                contraintes["egalites"].append({elt: 0})
                 
         return contraintes

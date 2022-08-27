@@ -1,13 +1,14 @@
 from data_processing import Datasets
 import re
 import unicodedata
+import numpy as np
 
 nature, super_marche, produits_beautes = Datasets().read_data()
 
 class Contraintes:
     
     def __init__(self, budget, choix):
-        self.choix = choix
+        self.choix = np.unique(np.array([i.lower().strip() for i in choix]))
         self.budget = budget
         
     def get_palier(self):
@@ -31,7 +32,7 @@ class Contraintes:
     def contraintes(self):
         palier = self.get_palier()
         contraintes = {"egalites": [], "inegalites": []}
-        self.choix = [elt.lower().strip() for elt in self.choix]
+        #self.choix = [elt.lower().strip() for elt in self.choix]
         for elt in self.choix:
             if(elt in list(nature['Sous catégories dépenses'].str.lower())):
                 prix = float(nature[nature['Sous catégories dépenses'] == elt][palier])
